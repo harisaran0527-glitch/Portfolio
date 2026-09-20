@@ -32,7 +32,7 @@
   </defs>
 
   
-  <g transform="translate(30, 30) scale(0.88)">
+  <g transform="translate(0, 0) scale(1)">
     <!-- SUBTLE AMBIENT CYAN LIGHT GLOW AT CORE -->
     <ellipse cx="256" cy="256" rx="120" ry="120" fill="url(#cyanPrism)" opacity="0.12" filter="url(#cyanGlow)" />
 

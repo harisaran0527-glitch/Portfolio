@@ -64,10 +64,16 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
             onClick={(e) => smoothScroll(e, '#hero')}
             id="nav-brand"
             aria-label="SARAN Portfolio — Scroll to top"
-            className="text-2xl font-extrabold tracking-tighter text-white hover:text-blue-400 transition-colors duration-300 flex items-baseline gap-0.5 group"
+            className="flex items-center gap-3 group focus:outline-none"
           >
-            <span>SARAN</span>
-            <span className="text-blue-500 group-hover:translate-x-px transition-transform inline-block">.</span>
+            <img
+              src="/assets/logo/saran-symbol.svg"
+              alt="SARAN Logo"
+              className="h-8 w-8 object-contain transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_0_8px_rgba(0,240,255,0.25)]"
+            />
+            <span className="text-xl font-black tracking-[0.2em] text-white flex items-baseline group-hover:text-slate-100 transition-colors">
+              SARAN<span className="text-[#00F0FF] group-hover:translate-x-0.5 transition-transform inline-block">.</span>
+            </span>
           </a>
 
           {/* Desktop Nav */}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowDown, Sparkles, Terminal, Code2, Cpu } from 'lucide-react';
+import saranProfileImg from '../assets/saran-profile.jpeg';
 
 const fadeUp = (delay: number = 0) => ({
   initial: { opacity: 0, y: 28 },
@@ -22,13 +23,13 @@ export const Hero: React.FC = () => {
       {/* Subtle radial glow behind content */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 flex items-center justify-center"
+        className="pointer-events-none absolute inset-0 flex items-center justify-center z-0"
       >
-        <div className="w-[700px] h-[500px] bg-gradient-radial from-blue-600/10 via-violet-600/6 to-transparent rounded-full blur-3xl" />
+        <div className="w-[700px] h-[500px] bg-gradient-radial from-blue-600/15 via-violet-600/8 to-transparent rounded-full blur-3xl" />
       </div>
 
       {/* Background grid */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 grid-background-pattern opacity-60" />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 grid-background-pattern opacity-40 z-0" />
 
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
         {/* ── Left Content Column ──────────────────── */}
@@ -83,7 +84,7 @@ export const Hero: React.FC = () => {
               id="hero-cta-work"
               href="#work"
               onClick={scrollToSection('#work')}
-              className="group px-8 py-4 rounded-xl bg-white text-black font-bold text-sm hover:bg-blue-500 hover:text-white transition-all duration-300 shadow-lg shadow-black/20 flex items-center gap-2"
+              className="btn-magnetic btn-shine px-8 py-4 rounded-xl bg-white text-black font-bold text-sm hover:bg-blue-400 hover:text-white transition-all duration-300 shadow-lg shadow-black/20 flex items-center gap-2"
             >
               <span>Explore My Work</span>
               <ArrowDown
@@ -96,7 +97,7 @@ export const Hero: React.FC = () => {
               id="hero-cta-connect"
               href="#contact"
               onClick={scrollToSection('#contact')}
-              className="px-8 py-4 rounded-xl bg-white/5 text-white font-semibold text-sm border border-white/10 hover:border-indigo-500/60 hover:bg-indigo-950/40 transition-all duration-300 flex items-center gap-2"
+              className="btn-magnetic px-8 py-4 rounded-xl bg-white/5 text-white font-semibold text-sm border border-white/10 hover:border-indigo-500/60 hover:bg-indigo-950/40 transition-all duration-300 flex items-center gap-2"
             >
               <span>Let's Connect</span>
               <Sparkles aria-hidden="true" className="w-4 h-4 text-indigo-400" />
@@ -128,9 +129,13 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0, scale: 0.95, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] as const }}
-          className="lg:col-span-5 flex justify-center lg:justify-end"
+          className="lg:col-span-5 flex justify-center lg:justify-end z-20 relative"
         >
-          <div className="relative group max-w-[450px] w-full">
+          <motion.div
+            animate={{ y: [0, -8, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+            className="relative group max-w-[450px] w-full"
+          >
             {/* Atmospheric Cinematic Backdrop Aura Glow */}
             <div
               aria-hidden="true"
@@ -138,16 +143,16 @@ export const Hero: React.FC = () => {
             />
 
             {/* Premium Studio Frame Container */}
-            <div className="relative p-3.5 sm:p-4 rounded-[2.5rem] bg-[#070914]/90 border border-white/20 ring-1 ring-blue-500/30 shadow-[0_30px_80px_-15px_rgba(0,0,0,0.95)] backdrop-blur-2xl overflow-hidden">
+            <div className="relative p-3.5 sm:p-4 rounded-[2.5rem] bg-[#070914]/95 border border-white/20 ring-1 ring-blue-500/40 shadow-[0_30px_80px_-15px_rgba(0,0,0,0.95)] backdrop-blur-2xl overflow-hidden">
               {/* Subtle top rim light accent line */}
               <div
                 aria-hidden="true"
-                className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent pointer-events-none"
+                className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-400/60 to-transparent pointer-events-none"
               />
 
               <div className="relative rounded-[2rem] overflow-hidden ring-1 ring-white/10">
                 <img
-                  src="/images/saran-profile.jpeg"
+                  src={saranProfileImg || '/images/saran-profile.jpeg'}
                   alt="SARAN - AI & Data Science Student and Full-Stack Developer"
                   className="w-full h-[450px] sm:h-[500px] lg:h-[530px] object-cover object-top transition-transform duration-700 group-hover:scale-[1.015]"
                 />
@@ -159,7 +164,7 @@ export const Hero: React.FC = () => {
                 />
 
                 {/* Bottom Card Glass Overlay Badge */}
-                <div className="absolute bottom-5 left-5 right-5 p-4 rounded-2xl bg-[#06070c]/85 backdrop-blur-md border border-white/12 flex items-center justify-between shadow-2xl">
+                <div className="absolute bottom-5 left-5 right-5 p-4 rounded-2xl bg-[#06070c]/90 backdrop-blur-md border border-white/15 flex items-center justify-between shadow-2xl">
                   <div>
                     <span className="text-xs font-mono font-bold text-white tracking-wider block">SARAN</span>
                     <span className="text-[11px] font-mono text-blue-400 block mt-0.5">AI &amp; DS Student · Full-Stack Developer</span>
@@ -171,7 +176,7 @@ export const Hero: React.FC = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
 
@@ -181,7 +186,7 @@ export const Hero: React.FC = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.3, duration: 1 }}
         aria-hidden="true"
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 text-slate-600 text-[10px] font-mono tracking-widest uppercase select-none"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 text-slate-600 text-[10px] font-mono tracking-widest uppercase select-none z-10"
       >
         <span>Scroll</span>
         <div className="w-5 h-8 rounded-full border border-slate-700 p-1 flex justify-center">
