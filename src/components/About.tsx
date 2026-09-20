@@ -52,7 +52,7 @@ export const About: React.FC = () => {
               {focusAreas.map(({ label, icon: Icon, accent }) => (
                 <div
                   key={label}
-                  className={`px-3.5 py-2 rounded-lg border flex items-center gap-2 text-xs font-mono text-slate-200 hover:text-white transition-colors ${accent}`}
+                  className={`px-3.5 py-2 rounded-lg border flex items-center gap-2 text-xs font-mono text-slate-200 hover:text-white hover:scale-105 active:scale-95 transition-all duration-200 cursor-default ${accent}`}
                 >
                   <Icon aria-hidden="true" className="w-3.5 h-3.5" />
                   <span>{label}</span>
@@ -88,7 +88,7 @@ export const About: React.FC = () => {
             transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
             className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-8 border-t border-white/8"
           >
-            <div className="p-5 rounded-xl bg-white/4 border border-white/8 hover:border-blue-500/25 transition-colors flex items-start gap-4">
+            <div className="p-5 rounded-xl bg-white/4 border border-white/8 hover:border-blue-500/25 hover:shadow-lg hover:shadow-blue-500/5 transition-all duration-300 flex items-start gap-4 group/card">
               <div className="p-2.5 rounded-lg bg-blue-950/60 text-blue-400 border border-blue-900/50 flex-shrink-0">
                 <GraduationCap aria-hidden="true" className="w-5 h-5" />
               </div>
@@ -100,7 +100,7 @@ export const About: React.FC = () => {
               </div>
             </div>
 
-            <div className="p-5 rounded-xl bg-white/4 border border-white/8 hover:border-indigo-500/25 transition-colors flex items-start gap-4">
+            <div className="p-5 rounded-xl bg-white/4 border border-white/8 hover:border-indigo-500/25 hover:shadow-lg hover:shadow-indigo-500/5 transition-all duration-300 flex items-start gap-4 group/card">
               <div className="p-2.5 rounded-lg bg-indigo-950/60 text-indigo-400 border border-indigo-900/50 flex-shrink-0">
                 <Building2 aria-hidden="true" className="w-5 h-5" />
               </div>

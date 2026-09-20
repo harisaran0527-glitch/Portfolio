@@ -88,7 +88,7 @@ export const ProjectArchive: React.FC<ProjectArchiveProps> = ({
               id={`archive-filter-${cat.replace(/\s+/g, '-').replace(/\//g, '').toLowerCase()}`}
               onClick={() => setActiveFilter(cat)}
               aria-pressed={isActive}
-              className={`text-[11px] font-mono px-3.5 py-1.5 rounded-lg transition-all duration-250 flex items-center gap-1.5 ${
+              className={`relative text-[11px] font-mono px-3.5 py-1.5 rounded-lg transition-all duration-250 flex items-center gap-1.5 active:scale-95 ${
                 isActive
                   ? 'bg-blue-600 text-white font-semibold border border-blue-500 shadow-md shadow-blue-600/20'
                   : 'bg-white/5 text-slate-500 hover:text-slate-200 hover:bg-white/8 border border-white/5'
@@ -112,72 +112,7 @@ export const ProjectArchive: React.FC<ProjectArchiveProps> = ({
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {filtered.map((project, idx) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: idx * 0.06, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative rounded-xl bg-[#0d0d12] border border-white/10 overflow-hidden hover:border-indigo-500/40 transition-all duration-350 flex flex-col cursor-pointer"
-              onClick={() => onSelectProject(project)}
-              role="button"
-              tabIndex={0}
-              aria-label={`Open case study: ${project.title}`}
-              onKeyDown={(e) => e.key === 'Enter' && onSelectProject(project)}
-            >
-              {/* Visual */}
-              <div className="w-full h-44 relative overflow-hidden border-b border-white/8 flex-shrink-0">
-                <div className="absolute inset-0 group-hover:scale-[1.04] transition-transform duration-500">
-                  <ProjectVisualCanvas type={project.visualType} title={project.title} />
-                </div>
-                <div className="absolute inset-0 bg-black/15 group-hover:bg-transparent transition-colors duration-300" />
-                {/* Category badge overlay */}
-                <span className="absolute top-3 left-3 text-[9px] font-mono px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-slate-300 uppercase tracking-wider">
-                  {project.filterCategory}
-                </span>
-              </div>
-
-              {/* Content */}
-              <div className="p-6 flex-1 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center justify-between text-[10px] font-mono text-slate-600 mb-2.5">
-                    <span>PROJECT {project.number}</span>
-                    <span>{project.year}</span>
-                  </div>
-
-                  <h3 className="text-base font-bold text-white group-hover:text-blue-300 transition-colors duration-300 mb-2.5 line-clamp-2">
-                    {project.title}
-                  </h3>
-
-                  <p className="text-slate-500 text-xs leading-relaxed line-clamp-3">
-                    {project.shortDescription}
-                  </p>
-                </div>
-
-                {/* Footer */}
-                <div className="pt-5 mt-5 border-t border-white/5 flex items-center justify-between">
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.techStack.slice(0, 3).map((tech) => (
-                      <span
-                        key={tech}
-                        className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-500"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {project.techStack.length > 3 && (
-                      <span className="text-[10px] font-mono text-slate-600">+{project.techStack.length - 3}</span>
-                    )}
-                  </div>
-
-                  <div
-                    aria-hidden="true"
-                    className="w-8 h-8 rounded-full flex-shrink-0 bg-white/5 group-hover:bg-blue-600 text-slate-500 group-hover:text-white flex items-center justify-center transition-all duration-300"
-                  >
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+            <ArchiveCard key={project.id} project={project} idx={idx} onSelectProject={onSelectProject} />
           ))}
         </motion.div>
       </AnimatePresence>
@@ -191,3 +126,107 @@ export const ProjectArchive: React.FC<ProjectArchiveProps> = ({
     </section>
   );
 };
+
+// ── Archive Card with Spotlight ──────────────────────────────────────────────
+
+interface ArchiveCardProps {
+  project: Project;
+  idx: number;
+  onSelectProject: (project: Project) => void;
+}
+
+const ArchiveCard: React.FC<ArchiveCardProps> = ({ project, idx, onSelectProject }) => {
+  const [spotlight, setSpotlight] = useState({ x: 50, y: 50, opacity: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setSpotlight({ x, y, opacity: 1 });
+  };
+
+  const handleMouseLeave = () => {
+    setSpotlight((prev) => ({ ...prev, opacity: 0 }));
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: idx * 0.06, ease: [0.16, 1, 0.3, 1] }}
+      className="group relative rounded-xl bg-[#0d0d12] border border-white/10 overflow-hidden hover:border-indigo-500/40 transition-all duration-350 flex flex-col cursor-pointer"
+      onClick={() => onSelectProject(project)}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      role="button"
+      tabIndex={0}
+      aria-label={`Open case study: ${project.title}`}
+      onKeyDown={(e) => e.key === 'Enter' && onSelectProject(project)}
+    >
+      {/* Cursor Spotlight Sheen */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -inset-px rounded-xl transition-opacity duration-300 z-10"
+        style={{
+          opacity: spotlight.opacity,
+          background: `radial-gradient(400px circle at ${spotlight.x}% ${spotlight.y}%, rgba(99, 102, 241, 0.12), transparent 70%)`,
+        }}
+      />
+
+      {/* Visual */}
+      <div className="w-full h-44 relative overflow-hidden border-b border-white/8 flex-shrink-0">
+        <div className="absolute inset-0 group-hover:scale-[1.05] transition-transform duration-500">
+          <ProjectVisualCanvas type={project.visualType} title={project.title} />
+        </div>
+        <div className="absolute inset-0 bg-black/15 group-hover:bg-transparent transition-colors duration-300" />
+        {/* Category badge overlay */}
+        <span className="absolute top-3 left-3 text-[9px] font-mono px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-slate-300 uppercase tracking-wider">
+          {project.filterCategory}
+        </span>
+      </div>
+
+      {/* Content */}
+      <div className="p-6 flex-1 flex flex-col justify-between">
+        <div>
+          <div className="flex items-center justify-between text-[10px] font-mono text-slate-600 mb-2.5">
+            <span>PROJECT {project.number}</span>
+            <span>{project.year}</span>
+          </div>
+
+          <h3 className="text-base font-bold text-white group-hover:text-cyan-300 transition-colors duration-300 mb-2.5 line-clamp-2">
+            {project.title}
+          </h3>
+
+          <p className="text-slate-500 text-xs leading-relaxed line-clamp-3">
+            {project.shortDescription}
+          </p>
+        </div>
+
+        {/* Footer */}
+        <div className="pt-5 mt-5 border-t border-white/5 flex items-center justify-between">
+          <div className="flex flex-wrap gap-1.5">
+            {project.techStack.slice(0, 3).map((tech) => (
+              <span
+                key={tech}
+                className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-500"
+              >
+                {tech}
+              </span>
+            ))}
+            {project.techStack.length > 3 && (
+              <span className="text-[10px] font-mono text-slate-600">+{project.techStack.length - 3}</span>
+            )}
+          </div>
+
+          <div
+            aria-hidden="true"
+            className="w-8 h-8 rounded-full flex-shrink-0 bg-white/5 group-hover:bg-blue-600 text-slate-500 group-hover:text-white flex items-center justify-center transition-all duration-300 group-hover:shadow-[0_0_12px_rgba(59,130,246,0.4)]"
+          >
+            <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+

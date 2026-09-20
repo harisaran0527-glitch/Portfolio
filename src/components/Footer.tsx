@@ -1,8 +1,13 @@
 import React from 'react';
 import { ArrowUp } from 'lucide-react';
+import { useMagnetic } from '../hooks/useMagnetic';
 
 export const Footer: React.FC = () => {
-  const scrollToTop = () => {
+  const brandRef = useMagnetic<HTMLAnchorElement>({ strength: 0.2 });
+  const scrollTopRef = useMagnetic<HTMLButtonElement>({ strength: 0.35 });
+
+  const scrollToTop = (e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -13,11 +18,12 @@ export const Footer: React.FC = () => {
         {/* Brand & Subtitle */}
         <div>
           <a
+            ref={brandRef}
             href="#hero"
             onClick={scrollToTop}
-            className="text-2xl font-bold tracking-tighter text-white hover:text-blue-400 transition-colors inline-block mb-1"
+            className="btn-magnetic text-2xl font-bold tracking-tighter text-white hover:text-cyan-400 transition-colors inline-block mb-1 group"
           >
-            SARAN<span className="text-blue-500">.</span>
+            SARAN<span className="text-cyan-400 group-hover:text-blue-500 transition-colors">.</span>
           </a>
           <p className="text-xs font-mono text-slate-500">
             AI & Data Science Student · Full-Stack Developer · AI Builder
@@ -31,11 +37,12 @@ export const Footer: React.FC = () => {
           </span>
 
           <button
+            ref={scrollTopRef}
             onClick={scrollToTop}
-            className="p-3 rounded-full bg-white/5 hover:bg-blue-500 text-slate-300 hover:text-white border border-white/10 transition-all duration-300"
+            className="btn-magnetic p-3 rounded-full bg-white/5 hover:bg-cyan-500/20 text-slate-300 hover:text-cyan-300 border border-white/10 hover:border-cyan-500/40 hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] active:scale-95 transition-all duration-300 group"
             aria-label="Scroll back to top"
           >
-            <ArrowUp className="w-4 h-4" />
+            <ArrowUp className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform duration-200" />
           </button>
         </div>
 
@@ -43,3 +50,4 @@ export const Footer: React.FC = () => {
     </footer>
   );
 };
+

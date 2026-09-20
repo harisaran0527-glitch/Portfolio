@@ -1,15 +1,22 @@
 import React, { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Mail, Link2, ExternalLink, Copy, Check, ArrowUpRight, MessageSquare } from 'lucide-react';
+import { Mail, Phone, Link2, ExternalLink, Copy, Check, ArrowUpRight, MessageSquare } from 'lucide-react';
+import { useMagnetic } from '../hooks/useMagnetic';
 
 export const Contact: React.FC = () => {
   const [copied, setCopied] = useState(false);
   const emailAddress = 'harisaran0527@gmail.com';
+  const phoneNumber = '+91 86106 33056';
   const linkedinUrl = 'https://www.linkedin.com/in/sarans-engineer';
   const githubUrl = 'https://github.com/harisaran0527-glitch';
 
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-60px' });
+
+  const emailRef = useMagnetic<HTMLAnchorElement>({ strength: 0.25, radius: 100 });
+  const phoneRef = useMagnetic<HTMLAnchorElement>({ strength: 0.25, radius: 100 });
+  const linkedinRef = useMagnetic<HTMLAnchorElement>({ strength: 0.25, radius: 100 });
+  const githubRef = useMagnetic<HTMLAnchorElement>({ strength: 0.25, radius: 100 });
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(emailAddress);
@@ -63,9 +70,10 @@ export const Contact: React.FC = () => {
             {/* Email Action */}
             <div className="flex items-center gap-2 p-1.5 rounded-xl bg-white/5 border border-white/10">
               <a
+                ref={emailRef}
                 id="contact-email-btn"
                 href={`mailto:${emailAddress}`}
-                className="px-5 py-3 rounded-lg bg-white text-black font-semibold text-xs font-mono hover:bg-blue-400 hover:text-white transition-all flex items-center gap-2"
+                className="btn-magnetic px-5 py-3 rounded-lg bg-white text-black font-semibold text-xs font-mono hover:bg-cyan-400 hover:text-white transition-all duration-300 flex items-center gap-2 active:scale-95 shadow-md hover:shadow-cyan-400/25"
               >
                 <Mail aria-hidden="true" className="w-4 h-4" />
                 <span>Email Saran ({emailAddress})</span>
@@ -74,43 +82,58 @@ export const Contact: React.FC = () => {
               <button
                 id="contact-copy-email-btn"
                 onClick={handleCopyEmail}
-                className="p-3 rounded-lg hover:bg-white/10 text-slate-300 hover:text-white transition-colors text-xs font-mono flex items-center gap-1.5"
+                className="p-3 rounded-lg hover:bg-white/10 text-slate-300 hover:text-white transition-all duration-200 text-xs font-mono flex items-center gap-1.5 active:scale-95"
                 title="Copy Email Address"
                 aria-label="Copy Email Address"
               >
                 {copied ? (
-                  <Check aria-hidden="true" className="w-4 h-4 text-emerald-400" />
+                  <Check aria-hidden="true" className="w-4 h-4 text-emerald-400 drop-shadow-[0_0_6px_#34d399]" />
                 ) : (
                   <Copy aria-hidden="true" className="w-4 h-4" />
                 )}
-                <span className="hidden sm:inline">{copied ? 'Copied' : 'Copy Email'}</span>
+                <span className="hidden sm:inline">{copied ? 'Copied!' : 'Copy Email'}</span>
               </button>
             </div>
 
+            {/* Phone Action */}
+            <a
+              ref={phoneRef}
+              id="contact-phone-link"
+              href="tel:+918610633056"
+              aria-label={`Call Saran at ${phoneNumber}`}
+              className="group btn-magnetic px-6 py-4 rounded-xl bg-white/5 hover:bg-emerald-500/10 text-white font-medium text-xs font-mono border border-white/10 hover:border-emerald-500/50 transition-all duration-300 flex items-center gap-2 active:scale-95"
+            >
+              <Phone aria-hidden="true" className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform duration-200" />
+              <span>{phoneNumber}</span>
+              <ArrowUpRight aria-hidden="true" className="w-3.5 h-3.5 text-slate-500 group-hover:text-emerald-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
+            </a>
+
             {/* LinkedIn Action */}
             <a
+              ref={linkedinRef}
               id="contact-linkedin-link"
               href={linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-4 rounded-xl bg-white/5 hover:bg-white/10 text-white font-medium text-xs font-mono border border-white/10 hover:border-blue-500/50 transition-all flex items-center gap-2"
+              className="group btn-magnetic px-6 py-4 rounded-xl bg-white/5 hover:bg-white/10 text-white font-medium text-xs font-mono border border-white/10 hover:border-blue-500/50 transition-all duration-300 flex items-center gap-2 active:scale-95"
             >
               <Link2 aria-hidden="true" className="w-4 h-4 text-blue-400" />
               <span>linkedin.com/in/sarans-engineer</span>
-              <ArrowUpRight aria-hidden="true" className="w-3.5 h-3.5 text-slate-500" />
+              <ArrowUpRight aria-hidden="true" className="w-3.5 h-3.5 text-slate-500 group-hover:text-blue-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
             </a>
 
             {/* GitHub Action */}
             <a
+              ref={githubRef}
               id="contact-github-link"
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-4 rounded-xl bg-white/5 hover:bg-white/10 text-white font-medium text-xs font-mono border border-white/10 hover:border-purple-500/50 transition-all flex items-center gap-2"
+              className="group btn-magnetic px-6 py-4 rounded-xl bg-white/5 hover:bg-white/10 text-white font-medium text-xs font-mono border border-white/10 hover:border-purple-500/50 transition-all duration-300 flex items-center gap-2 active:scale-95"
             >
               <ExternalLink aria-hidden="true" className="w-4 h-4 text-purple-400" />
               <span>github.com/harisaran0527-glitch</span>
-              <ArrowUpRight aria-hidden="true" className="w-3.5 h-3.5 text-slate-500" />
+              <ArrowUpRight aria-hidden="true" className="w-3.5 h-3.5 text-slate-500 group-hover:text-purple-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
             </a>
           </div>
         </div>
@@ -118,3 +141,5 @@ export const Contact: React.FC = () => {
     </section>
   );
 };
+
+

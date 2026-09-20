@@ -82,7 +82,7 @@ export const Stack: React.FC = () => {
                 initial={{ opacity: 0, y: 28 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.08 * idx, ease: [0.16, 1, 0.3, 1] }}
-                className="p-8 rounded-2xl bg-[#0d0d12] border border-white/10 hover:border-blue-500/30 transition-all duration-350 glass-panel-hover flex flex-col gap-6"
+                className="p-8 rounded-2xl bg-[#0d0d12] border border-white/10 hover:border-blue-500/30 transition-all duration-350 glass-panel-hover flex flex-col gap-6 hover:shadow-lg hover:shadow-blue-500/5"
               >
                 {/* Card header */}
                 <div className="flex items-center gap-3 pb-5 border-b border-white/8">
@@ -99,7 +99,7 @@ export const Stack: React.FC = () => {
                   {category.skills.map((skill) => (
                     <span
                       key={skill.name}
-                      className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/8 hover:border-blue-400/40 hover:bg-blue-950/30 text-slate-300 hover:text-blue-300 text-xs font-mono transition-all duration-200"
+                      className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/8 hover:border-cyan-400/50 hover:bg-cyan-950/30 text-slate-300 hover:text-cyan-300 text-xs font-mono transition-all duration-200 hover:shadow-sm hover:shadow-cyan-500/10 active:scale-95 cursor-default"
                     >
                       {skill.name}
                     </span>

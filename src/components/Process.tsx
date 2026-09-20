@@ -85,7 +85,7 @@ export const Process: React.FC = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: 0.08 * idx, ease: [0.16, 1, 0.3, 1] as const }}
-              className="relative p-6 rounded-xl bg-[#0d0d12] border border-white/10 hover:border-blue-500/40 transition-all duration-300 flex flex-col justify-between group glass-panel-hover"
+              className="relative p-6 rounded-xl bg-[#0d0d12] border border-white/10 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-500/5 transition-all duration-300 flex flex-col justify-between group glass-panel-hover"
             >
               <div>
                 {/* Step Number & Icon */}
@@ -93,7 +93,7 @@ export const Process: React.FC = () => {
                   <span className="text-2xl font-mono font-extrabold text-white">
                     {step.number}
                   </span>
-                  <div className={`p-2 rounded-lg ${step.bg} ${step.color} border ${step.border}`}>
+                  <div className={`p-2 rounded-lg ${step.bg} ${step.color} border ${step.border} group-hover:scale-110 transition-transform duration-300`}>
                     <StepIcon aria-hidden="true" className="w-4 h-4" />
                   </div>
                 </div>
@@ -113,7 +113,7 @@ export const Process: React.FC = () => {
               {idx < steps.length - 1 && (
                 <div
                   aria-hidden="true"
-                  className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 z-10 w-6 h-px bg-white/20"
+                  className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 z-10 w-6 h-px bg-white/20 group-hover:bg-blue-400/50 transition-colors duration-300"
                 />
               )}
             </motion.div>

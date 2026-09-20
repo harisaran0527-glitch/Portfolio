@@ -44,12 +44,12 @@ export const Journey: React.FC = () => {
             className="relative group"
           >
             {/* Timeline Dot Indicator */}
-            <div className="absolute -left-[41px] md:-left-[57px] top-1.5 w-5 h-5 rounded-full bg-[#070709] border-2 border-purple-500 group-hover:scale-125 group-hover:bg-purple-500 transition-all duration-300 flex items-center justify-center">
+            <div className="absolute -left-[41px] md:-left-[57px] top-1.5 w-5 h-5 rounded-full bg-[#070709] border-2 border-purple-500 group-hover:scale-125 group-hover:bg-purple-500 transition-all duration-300 flex items-center justify-center group-hover:shadow-[0_0_12px_rgba(168,85,247,0.5)]">
               <div className="w-1.5 h-1.5 rounded-full bg-white" />
             </div>
 
             {/* Card Content */}
-            <div className="p-8 rounded-2xl bg-[#0d0d12] border border-white/10 hover:border-purple-500/40 transition-all duration-300 glass-panel-hover">
+            <div className="p-8 rounded-2xl bg-[#0d0d12] border border-white/10 hover:border-purple-500/40 hover:shadow-lg hover:shadow-purple-500/5 transition-all duration-300 glass-panel-hover">
               <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
                 <span className="text-xs font-mono px-3 py-1 rounded-full bg-purple-950/60 text-purple-300 border border-purple-800/40">
                   {milestone.category}
@@ -70,7 +70,7 @@ export const Journey: React.FC = () => {
                 {milestone.highlights.map((hl, hIdx) => (
                   <span
                     key={hIdx}
-                    className="text-xs font-mono px-2.5 py-1 rounded bg-white/5 text-slate-300 border border-white/5 flex items-center gap-1.5"
+                    className="text-xs font-mono px-2.5 py-1 rounded bg-white/5 text-slate-300 border border-white/5 flex items-center gap-1.5 hover:border-purple-400/40 transition-colors duration-200"
                   >
                     <CheckCircle2 aria-hidden="true" className="w-3 h-3 text-purple-400" />
                     <span>{hl}</span>
