@@ -186,7 +186,7 @@ export const Hero: React.FC = () => {
 
               <div className="relative rounded-[2rem] overflow-hidden ring-1 ring-white/10">
                 <img
-                  src={saranProfileImg || '/images/saran-profile.jpeg'}
+                  src={saranProfileImg || '/images/saran-image.jpeg'}
                   alt="SARAN - AI & Data Science Student and Full-Stack Developer"
                   className="w-full h-[450px] sm:h-[500px] lg:h-[530px] object-cover object-top transition-transform duration-700 group-hover:scale-[1.025]"
                 />
